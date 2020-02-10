@@ -17,19 +17,22 @@ namespace Keepr.Services
     {
       return _repo.Get();
     }
-
-    internal Keep Create(Keep newKeep)
-    {
-      newKeep.Id = _repo.Create(newKeep);
-      return newKeep;
-    }
-
     internal Keep GetById(int id)
     {
       var exists = _repo.GetById(id);
       if (exists == null) { throw new Exception("Invalid Id"); }
-
       return exists;
+    }
+
+    internal Keep Create(Keep KeepData)
+    {
+      _repo.Create(KeepData);
+      return KeepData;
+    }
+
+    internal object Edit(Keep update)
+    {
+      throw new NotImplementedException();
     }
 
 
@@ -41,5 +44,7 @@ namespace Keepr.Services
       return exists;
 
     }
+
+
   }
 }

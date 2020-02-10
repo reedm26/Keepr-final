@@ -21,6 +21,24 @@ namespace Keepr.Repositories
       return _db.Query<Keep>(sql);
     }
 
+    internal object GetById(int id)
+    {
+      string sql = "SELECT * FROM students";
+      return _db.QueryFirstOrDefault<Keep>(sql, new { id });
+    }
+
+
+
+    internal void Edit(Keep update)
+    {
+      string sql = @"
+        UPDATE keeps 
+        SET
+        name =@Name,
+        WHERE id = @Id;
+        ";
+      _db.Execute(sql, update);
+    }
     internal Keep Create(Keep KeepData)
     {
       string sql = @"
@@ -35,14 +53,11 @@ namespace Keepr.Repositories
       return KeepData;
     }
 
-    internal object GetById(int id)
-    {
-      throw new NotImplementedException();
-    }
 
-    internal object Delete(int id)
+    internal void Delete(int id)
     {
-      throw new NotImplementedException();
+      string sql = "DELETE FROM keeps WHERE id = @id";
+      _db.Execute(sql, new { id });
     }
   }
 }

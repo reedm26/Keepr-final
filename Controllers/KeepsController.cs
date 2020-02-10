@@ -47,10 +47,25 @@ namespace Keepr.Controllers
       }
 
     }
+    [HttpPut("{id}")]
+
+    public ActionResult<Keep> Edit([FromBody] Keep update, int id)
+    {
+      try
+      {
+        update.Id = id;
+        return Ok(_ks.Edit(update));
+      }
+      catch (Exception e)
+      {
+
+        return BadRequest(e.Message);
+      }
+    }
 
     [HttpPost]
-    [Authorize]
-    public ActionResult<Keep> Post([FromBody] Keep newKeep)
+
+    public ActionResult<Keep> Create([FromBody] Keep newKeep)
     {
       try
       {
