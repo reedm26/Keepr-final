@@ -29,5 +29,12 @@ namespace Keepr.Services
       return KeepData;
     }
 
+    internal string Delete(int id)
+    {
+      var exists = _repo.GetById(id);
+      if (exists == null) { throw new Exception("Invalid Id"); }
+      _repo.Delete(id);
+      return "It was deleted";
+    }
   }
 }
