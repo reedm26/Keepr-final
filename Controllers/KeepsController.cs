@@ -46,52 +46,18 @@ namespace Keepr.Controllers
         return BadRequest(e.Message);
       }
     }
-
-
-    [HttpPut("{id}")]
-
-    public ActionResult<Keep> Edit([FromBody] Keep update, int id)
-    {
-      try
-      {
-        update.Id = id;
-        return Ok(_ks.Edit(update));
-      }
-      catch (Exception e)
-      {
-
-        return BadRequest(e.Message);
-      }
-    }
-
     [HttpPost]
-
-    public ActionResult<Keep> Post([FromBody] Keep KeepData)
+    public ActionResult<Keep> Post([FromBody] Keep keepData)
     {
       try
       {
-        var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-        KeepData.UserId = userId;
-        return Ok(_ks.Create(KeepData));
+        keepData.UserId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+        return Ok(_ks.Create(keepData));
       }
       catch (Exception e)
       {
         return BadRequest(e.Message);
       }
     }
-    [HttpDelete]
-    public ActionResult<String> Delete(int id)
-    {
-      try
-      {
-        return Ok(_ks.Delete(id));
-      }
-      catch (Exception e)
-      {
-
-        return BadRequest(e.Message);
-      }
-    }
-
   }
 }
