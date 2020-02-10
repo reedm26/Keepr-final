@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Data;
 using Keepr.Models;
 using Keepr.Repositories;
 
@@ -19,7 +18,7 @@ namespace Keepr.Services
     }
     internal Keep GetById(int id)
     {
-      var exists = _repo.GetById(id);
+      Keep exists = GetById(id);
       if (exists == null) { throw new Exception("Invalid Id"); }
       return exists;
     }
@@ -30,21 +29,19 @@ namespace Keepr.Services
       return KeepData;
     }
 
-    internal object Edit(Keep update)
+    internal Keep Edit(Keep Update)
     {
-      throw new NotImplementedException();
+      var exists = _repo.GetById(Update.Id);
+      if (exists == null) { throw new Exception("Invalid Id"); }
+      if (exists.UserId != Update.UserId) { throw new Exception("You cannot do that because you arent the creator!"); }
+      return _repo.Edit(Update);
     }
-
-
     internal Keep Delete(int id)
     {
       var exists = _repo.Delete(id);
       if (exists == null) { throw new Exception("Invalid Id"); }
       _repo.Delete(id);
       return exists;
-
     }
-
-
   }
 }

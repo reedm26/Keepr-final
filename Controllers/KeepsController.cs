@@ -33,7 +33,7 @@ namespace Keepr.Controllers
       };
     }
     [HttpGet("{id}")]
-    [Authorize]
+
     public ActionResult<Keep> Get(int id)
     {
       try
@@ -45,8 +45,9 @@ namespace Keepr.Controllers
 
         return BadRequest(e.Message);
       }
-
     }
+
+
     [HttpPut("{id}")]
 
     public ActionResult<Keep> Edit([FromBody] Keep update, int id)
@@ -65,13 +66,13 @@ namespace Keepr.Controllers
 
     [HttpPost]
 
-    public ActionResult<Keep> Create([FromBody] Keep newKeep)
+    public ActionResult<Keep> Post([FromBody] Keep KeepData)
     {
       try
       {
         var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-        newKeep.UserId = userId;
-        return Ok(_ks.Create(newKeep));
+        KeepData.UserId = userId;
+        return Ok(_ks.Create(KeepData));
       }
       catch (Exception e)
       {
