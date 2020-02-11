@@ -8,9 +8,9 @@ namespace Keepr.Services
   public class KeepsService
   {
     private readonly KeepsRepository _repo;
-    public KeepsService(KeepsRepository repo)
+    public KeepsService(KeepsRepository kr)
     {
-      _repo = repo;
+      _repo = kr;
     }
     internal IEnumerable<Keep> Get()
     {
@@ -18,7 +18,7 @@ namespace Keepr.Services
     }
     internal Keep GetById(int id)
     {
-      Keep exists = GetById(id);
+      var exists = _repo.GetById(id);
       if (exists == null) { throw new Exception("Invalid Id"); }
       return exists;
     }
@@ -35,6 +35,14 @@ namespace Keepr.Services
       if (exists == null) { throw new Exception("Invalid Id"); }
       _repo.Delete(id);
       return "It was deleted";
+    }
+
+    internal object Edit(Keep update)
+    {
+      var exists = _repo.GetById(update.Id);
+      if (exists == null) { throw new Exception("Invalid Id"); }
+      _repo.Edit(update);
+      return update;
     }
   }
 }
