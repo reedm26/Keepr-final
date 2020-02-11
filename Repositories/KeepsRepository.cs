@@ -21,12 +21,17 @@ namespace Keepr.Repositories
       return _db.Query<Keep>(sql);
     }
 
+    //NOTE What is the new {id} actually doing
 
     internal Keep GetById(int id)
     {
       string sql = "SELECT * FROM keeps WHERE id = @id";
       return _db.QueryFirstOrDefault<Keep>(sql, new { id });
     }
+
+
+    //NOTE Figure out the LAST_INSERT_ID
+    //NOTE Execute Scalar ??
 
     internal Keep Create(Keep KeepData)
     {
