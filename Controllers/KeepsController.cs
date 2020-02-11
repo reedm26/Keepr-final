@@ -67,12 +67,10 @@ namespace Keepr.Controllers
     {
       try
       {
-
         return Ok(_ks.Delete(id));
       }
       catch (Exception e)
       {
-
         return BadRequest(e.Message);
       }
     }
