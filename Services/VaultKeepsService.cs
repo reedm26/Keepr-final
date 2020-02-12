@@ -13,8 +13,6 @@ namespace Keepr.Services
     {
       _repo = vkr;
     }
-
-
     internal IEnumerable<Keep> GetKeepsByVaultId(int vaultId, string userId)
     {
       var exists = _repo.GetKeepsByVaultId(vaultId, userId);
@@ -32,8 +30,7 @@ namespace Keepr.Services
     {
       var exists = _repo.GetById(vaultId, keepId);
       if (exists == null) { throw new Exception("Invalid Id"); }
-      else if (exists.UserId != userId) { throw new Exception("That isnt yours, so you cant delete it!")};
-
+      else if (exists.UserId != userId) { throw new Exception("That isnt yours, so you cant delete it!"); }
       _repo.Delete(exists.Id);
       return "This thing is gone!";
     }
