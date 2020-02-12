@@ -32,8 +32,9 @@ namespace Keepr.Controllers
         return BadRequest(e.Message);
       };
     }
+
     [HttpGet("{id}")]
-    [Authorize]
+
 
     public ActionResult<Keep> Get(int id)
     {
