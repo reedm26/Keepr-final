@@ -34,8 +34,10 @@ namespace Keepr.Services
     internal string Delete(int id)
     {
       var exists = _repo.GetById(id);
-      if (exists == null) { throw new Exception("Invalid Id"); }
-
+      if (exists == null)
+      {
+        throw new Exception("Invalid Id");
+      }
       _repo.Delete(id);
       return "Mamba Out";
     }

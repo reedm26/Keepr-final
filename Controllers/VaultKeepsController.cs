@@ -13,53 +13,22 @@ namespace Keepr.Controllers
 {
   [ApiController]
   [Route("api/[controller]")]
-
-  public class VaultsController : ControllerBase
+  public class VaultKeepsController : ControllerBase
   {
-    private readonly VaultsService _vs;
-    public VaultsController(VaultsService vs)
+    private readonly VaultKeepsService _vks;
+    public VaultKeepsController(VaultKeepsService vks)
     {
-      _vs = vs;
+      _vks = vks;
     }
-    [HttpGet]
-    [Authorize]
-    public ActionResult<IEnumerable<Vault>> Get()
-    {
-      try
-      {
-        return Ok(_vs.Get());
 
-      }
-      catch (Exception e)
-      {
+    [HttpGet("{id}/keeps")]
 
-        return BadRequest(e.Message);
-      }
-    }
-    [HttpGet("{id}")]
-    [Authorize]
-    public ActionResult<Vault> Get(int id)
-    {
-      try
-      {
-
-        return Ok(_vs.GetById(id));
-
-      }
-      catch (Exception e)
-      {
-        return BadRequest(e.Message);
-      }
-    }
-    [HttpPost]
-    [Authorize]
-    public ActionResult<Vault> Post([FromBody] Vault vaultData)
+    public ActionResult<VaultKeep> GetKeepsByVaultId(int id)
     {
       try
       {
         var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-        vaultData.UserId = userId;
-        return Ok(_vs.Create(vaultData));
+        return Ok(_vks.GetKeepsByVaultId(id, userId));
       }
       catch (Exception e)
       {
@@ -67,13 +36,30 @@ namespace Keepr.Controllers
         return BadRequest(e.Message);
       }
     }
-    [HttpDelete("{id}")]
-    [Authorize]
-    public ActionResult<Vault> Delete(int id)
+    [HttpPost]
+
+    public ActionResult<Vault> Post([FromBody] VaultKeep vaultKeepData)
     {
       try
       {
-        return Ok(_vs.Delete(id));
+        var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+        vaultKeepData.UserId = userId;
+        return Ok(_vks.Create(vaultKeepData));
+      }
+      catch (Exception e)
+      {
+
+        return BadRequest(e.Message);
+      }
+    }
+    [HttpDelete("{vaultId}/keeps/{keepId}")]
+
+    public ActionResult<string> Delete(int keepId, int vaultId)
+    {
+      try
+      {
+        var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+        return Ok(_vks.Delete(keepId, vaultId, userId));
       }
       catch (Exception e)
       {
