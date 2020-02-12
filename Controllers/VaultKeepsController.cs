@@ -38,13 +38,14 @@ namespace Keepr.Controllers
     }
     [HttpPost]
 
-    public ActionResult<Vault> Post([FromBody] VaultKeep vaultKeepData)
+    public ActionResult<string> Post([FromBody] VaultKeep vaultKeepData)
     {
       try
       {
         var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
         vaultKeepData.UserId = userId;
-        return Ok(_vks.Create(vaultKeepData));
+        _vks.Create(vaultKeepData);
+        return Ok("Created! finally....");
       }
       catch (Exception e)
       {
@@ -54,12 +55,12 @@ namespace Keepr.Controllers
     }
     [HttpDelete("{vaultId}/keeps/{keepId}")]
 
-    public ActionResult<string> Delete(int keepId, int vaultId)
+    public ActionResult<string> Delete(int vaultId, int keepId)
     {
       try
       {
         var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-        return Ok(_vks.Delete(keepId, vaultId, userId));
+        return Ok(_vks.Delete(vaultId, keepId, userId));
       }
       catch (Exception e)
       {

@@ -20,17 +20,21 @@ namespace Keepr.Services
       return exists;
     }
 
-    internal VaultKeep Create(VaultKeep vaultKeepData)
+    internal void Create(VaultKeep vaultKeepData)
     {
+      var exists = _repo.Find(vaultKeepData.KeepId, vaultKeepData.VaultId);
+      if (exists != null)
+      {
+        throw new Exception("You already got one of these");
+      }
       _repo.Create(vaultKeepData);
-      return vaultKeepData;
     }
 
     internal string Delete(int vaultId, int keepId, string userId)
     {
       var exists = _repo.GetById(vaultId, keepId);
-      if (exists == null) { throw new Exception("Invalid Id"); }
-      else if (exists.UserId != userId) { throw new Exception("That isnt yours, so you cant delete it!"); }
+      if (exists == null) { throw new Exception("Invalid Id Delete"); }
+      else if (exists.UserId != userId) { throw new Exception("This isnt yours, so you cant delete it!"); }
       _repo.Delete(exists.Id);
       return "This thing is gone!";
     }
