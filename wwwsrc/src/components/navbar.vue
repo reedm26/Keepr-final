@@ -22,7 +22,7 @@
           v-if="$auth.isAuthenticated"
           :class="{ active: $route.name == 'dashboard' }"
         >
-          <router-link class="nav-link" :to="{ name: 'dashboard' }">My-Dashboard</router-link>
+          <router-link class="nav-link" :to="{ name: 'dashboard' }">My-Vaults</router-link>
         </li>
       </ul>
       <span class="navbar-text">
