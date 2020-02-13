@@ -22,6 +22,9 @@ export default new Vuex.Store({
   mutations: {
     allKeeps(state, data) {
       state.publicKeeps = data;
+    },
+    createKeep(state, keep) {
+      state.publicKeeps.push(keep);
     }
   },
   actions: {
@@ -34,6 +37,10 @@ export default new Vuex.Store({
     async getPublicKeeps({ commit, dispatch }) {
       let res = await api.get("keeps");
       commit("allKeeps", res.data);
+    },
+    async addKeep({ commit, dispatch }, keep) {
+      let res = await api.post("keeps", keep);
+      commit("createKeep", res.data);
     }
   }
 });
