@@ -28,6 +28,12 @@ export default new Vuex.Store({
     },
     createKeep(state, keep) {
       state.publicKeeps.push(keep);
+    },
+    allVaults(state, data) {
+      state.vaults = data;
+    },
+    createVault(state, vault) {
+      state.vaults.push(vault);
     }
   },
   actions: {
@@ -48,6 +54,14 @@ export default new Vuex.Store({
     async deleteKeep({ commit, dispatch }, publicKeep) {
       let res = await api.delete("keeps/" + publicKeep.id);
       dispatch("allKeeps");
+    },
+    async getVaults({ commit, dispatch }) {
+      let res = await api.get("vaults");
+      commit("allVaults", res.data);
+    },
+    async addVault({ commit, dispatch }, vault) {
+      let res = await api.post("vaults", vault);
+      commit("createVault", res.data);
     }
   }
 });

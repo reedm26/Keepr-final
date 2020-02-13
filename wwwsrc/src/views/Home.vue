@@ -92,7 +92,7 @@ export default {
     },
     addKeep() {
       let keep = { ...this.newKeep };
-      console.log("you suck", keep);
+      console.log("add keep in home.vue", keep);
       this.$store.dispatch("addKeep", keep);
       this.newKeep = {
         name: "",
