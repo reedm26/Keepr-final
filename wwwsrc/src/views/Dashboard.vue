@@ -2,7 +2,7 @@
   <div class="dashboard container-fluid">
     <div class="row">
       <div class="col-12 d-flex">
-        <h1>My-Vaults</h1>
+        <h1>My Dashboard</h1>
         <form>
           <div v-if="show" class="form-row">
             <div class="col-4">
@@ -53,6 +53,7 @@
         <div class="btn-group">
           <button type="button" class="btn btn-outline-secondary m-2">
             {{ vault.name }}
+            <i @click="deleteVault(vault)" class="fas fa-ban"></i>
           </button>
         </div>
       </div>
@@ -83,6 +84,11 @@ export default {
         name: "",
         description: ""
       };
+    },
+    deleteVault(vault) {
+      if (confirm("Are you sure you want to delete this vault?")) {
+        this.$store.dispatch("deleteVault", vault);
+      }
     }
   },
   computed: {
