@@ -17,7 +17,10 @@ let api = Axios.create({
 
 export default new Vuex.Store({
   state: {
-    publicKeeps: []
+    publicKeeps: [],
+    privateKeeps: [],
+    vaults: [],
+    activeKeep: {}
   },
   mutations: {
     allKeeps(state, data) {
@@ -41,6 +44,10 @@ export default new Vuex.Store({
     async addKeep({ commit, dispatch }, keep) {
       let res = await api.post("keeps", keep);
       commit("createKeep", res.data);
+    },
+    async deleteKeep({ commit, dispatch }, publicKeep) {
+      let res = await api.delete("keeps/" + publicKeep.id);
+      dispatch("allKeeps");
     }
   }
 });

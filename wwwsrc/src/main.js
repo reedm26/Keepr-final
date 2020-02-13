@@ -4,6 +4,7 @@ import router from "./router";
 import store from "./store";
 import { Auth0Plugin, onAuth } from "@bcwdev/auth0-vue";
 import { domain, clientId, audience } from "./authConfig";
+import swal from "vue-sweetalert2";
 
 Vue.use(Auth0Plugin, {
   domain,
@@ -17,6 +18,7 @@ Vue.use(Auth0Plugin, {
     );
   }
 });
+Vue.use(swal);
 
 new Vue({
   router,
