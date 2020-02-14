@@ -32,14 +32,15 @@
             <div class="col">
               <input
                 v-model="newKeep.isPrivate"
-                :v-if="isPrivate"
                 type="checkbox"
                 class="form-check-iput"
               />
               <a style="font-size: 7px;">private</a>
             </div>
             <div class="col">
-              <button type="submit" class="btn btn-success">+</button>
+              <button type="submit" class="btn btn-success">
+                +
+              </button>
             </div>
           </div>
         </form>
@@ -47,7 +48,7 @@
       <div class="col-6">
         <h4>Public Keeps</h4>
         <button @click="show = !show" class="btn btn-warning m-2">
-          + keep
+          <i class="fa fa-ban"></i>
         </button>
       </div>
       <div>
@@ -72,6 +73,10 @@ export default {
         shares: 0,
         views: 0
       },
+      newVaultKeep: {
+        vaultId: "",
+        keepId: ""
+      },
       show: false
     };
   },
@@ -92,6 +97,7 @@ export default {
     },
     addKeep() {
       let keep = { ...this.newKeep };
+
       console.log("add keep in home.vue", keep);
       this.$store.dispatch("addKeep", keep);
       this.newKeep = {

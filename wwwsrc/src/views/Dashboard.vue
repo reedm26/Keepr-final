@@ -40,8 +40,8 @@
               </button>
               <label class="mr-sm-2 sr-only"></label>
               <select class="custom-select mr-sm-2">
-                <option selected>Choose...</option>
-                <option value="1">{{ One }}</option>
+                <option selected>Vault</option>
+                <option value="1">One</option>
                 <option value="2">Two</option>
                 <option value="3">Three</option>
               </select>
@@ -49,19 +49,25 @@
           </div>
         </form>
       </div>
-      <div v-for="vault in vaults" :key="vault.id" class="col-2">
-        <div class="btn-group">
+    </div>
+    <div class="row">
+      <div v-for="vault in vaults" :key="vault.id" class="col-6">
+        <div class="btn">
           <button type="button" class="btn btn-outline-secondary m-2">
             {{ vault.name }}
-            <i @click="deleteVault(vault)" class="fas fa-ban"></i>
+            <p @click="deleteVault(vault)" class="">x</p>
           </button>
         </div>
       </div>
+      <h3 class="text-center">Your Keeps</h3>
+      <keep />
     </div>
   </div>
 </template>
 
 <script>
+import keep from "@/components/KeepComponent.vue";
+// import vaultkeep from "@/components/VaultKeepComponent.vue";
 export default {
   name: "dashboard",
   data() {
@@ -74,6 +80,7 @@ export default {
     };
   },
   mounted() {
+    this.$store.dispatch("getVaultKeeps");
     this.$store.dispatch("getVaults");
   },
   methods: {
@@ -94,7 +101,13 @@ export default {
   computed: {
     vaults() {
       return this.$store.state.vaults;
+    },
+    publicKeeps() {
+      return this.$store.state.publicKeeps;
     }
+  },
+  components: {
+    keep
   }
 };
 </script>

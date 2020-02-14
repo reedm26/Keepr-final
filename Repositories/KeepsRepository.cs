@@ -50,7 +50,7 @@ namespace Keepr.Repositories
 
     internal void Edit(Keep update)
     {
-      string sql = "UPDATE keeps SET name = @Name WHERE id = @Id;";
+      string sql = "UPDATE keeps SET name = @Name, views = @Views WHERE id = @Id;";
       _db.Execute(sql, update);
     }
   }
