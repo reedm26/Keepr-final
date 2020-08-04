@@ -2,16 +2,11 @@
   <div class="home container-fluid">
     <div class="row">
       <div class="col-6">
-        <h4>Home</h4>
+        <h1>Home</h1>
         <form @submit.prevent="addKeep">
           <div v-if="show" class="form-row m-3">
             <div class="col">
-              <input
-                v-model="newKeep.name"
-                type="text"
-                class="form-control"
-                placeholder="name"
-              />
+              <input v-model="newKeep.name" type="text" class="form-control" placeholder="name" />
             </div>
             <div class="col">
               <input
@@ -22,25 +17,14 @@
               />
             </div>
             <div class="col">
-              <input
-                v-model="newKeep.img"
-                type="url"
-                class="form-control"
-                placeholder="Img"
-              />
+              <input v-model="newKeep.img" type="url" class="form-control" placeholder="Img" />
             </div>
             <div class="col">
-              <input
-                v-model="newKeep.isPrivate"
-                type="checkbox"
-                class="form-check-iput"
-              />
+              <input v-model="newKeep.isPrivate" type="checkbox" class="form-check-iput" />
               <a style="font-size: 7px;">private</a>
             </div>
             <div class="col">
-              <button type="submit" class="btn btn-success">
-                +
-              </button>
+              <button type="submit" class="btn btn-success">+</button>
             </div>
           </div>
         </form>
@@ -71,13 +55,13 @@ export default {
         isPrivate: false,
         keeps: 0,
         shares: 0,
-        views: 0
+        views: 0,
       },
       newVaultKeep: {
         vaultId: "",
-        keepId: ""
+        keepId: "",
       },
-      show: false
+      show: false,
     };
   },
   mounted() {
@@ -89,7 +73,7 @@ export default {
     },
     publicKeeps() {
       return this.$store.state.publicKeeps;
-    }
+    },
   },
   methods: {
     logout() {
@@ -107,12 +91,12 @@ export default {
         isPrivate: false,
         keeps: 0,
         shares: 0,
-        views: 0
+        views: 0,
       };
-    }
+    },
   },
   components: {
-    keep
-  }
+    keep,
+  },
 };
 </script>
