@@ -30,7 +30,7 @@
         </form>
       </div>
       <div class="col-6">
-        <h4>Public Keeps</h4>
+        <h5>Public Keeps</h5>
         <button @click="show = !show" class="btn btn-warning m-2">
           <i class="fa fa-ban"></i>
         </button>
